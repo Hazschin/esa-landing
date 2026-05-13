@@ -1,0 +1,1374 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>El Salón del Arte — Donde cada obra encuentra su lugar</title>
+<meta name="description" content="Diseñamos landing pages para artistas emergentes y les ayudamos a cobrar en cualquier lugar. Presencia digital profesional, hecha con la misma atención que tu obra." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+
+<style>
+  /* ==========================================================
+     El Salón del Arte — landing styles
+     Tokens, layout, components — all in one file.
+     ========================================================== */
+
+  :root {
+    /* Brand palette */
+    --crema: #F5F0E8;
+    --crema-2: #EFE9DD;       /* superficie ligeramente más oscura */
+    --carbón: #1F1D1B;        /* carbón cálido para fondos oscuros */
+    --carbón-2: #2A2622;      /* texto principal */
+    --piedra: #5C5549;        /* texto secundario */
+    --arena: #D4C9B8;
+    --oro: #C9A84C;
+    --oro-soft: #E8D9A8;
+    --terracota: #C17A5A;
+    --vino-soft: #D4A0A0;
+
+    /* Tokens derivados */
+    --accent: var(--oro);
+    --accent-soft: var(--oro-soft);
+    --on-dark: #F5F0E8;
+    --hairline: rgba(44, 38, 30, 0.12);
+    --hairline-dark: rgba(245, 240, 232, 0.14);
+
+    /* Type */
+    --serif: "Playfair Display", "Times New Roman", Georgia, serif;
+    --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+
+    /* Layout */
+    --shell: 1240px;
+    --gutter: clamp(20px, 4vw, 56px);
+    --radius: 2px;
+    --radius-card: 4px;
+
+    /* Motion */
+    --ease: cubic-bezier(.22,.61,.36,1);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--crema);
+    color: var(--carbón-2);
+    font-family: var(--sans);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: var(--oro); color: var(--carbón); }
+
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; cursor: pointer; }
+
+  /* ---------------- Type ---------------- */
+  .serif { font-family: var(--serif); }
+  .italic { font-style: italic; }
+  .eyebrow {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--piedra);
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 28px; height: 1px;
+    background: var(--accent);
+  }
+  .eyebrow.center { justify-content: center; }
+  .eyebrow.on-dark { color: var(--accent-soft); }
+
+  h1, h2, h3, h4 {
+    font-family: var(--serif);
+    font-weight: 600;
+    color: var(--carbón-2);
+    letter-spacing: -0.01em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  h1 { font-size: clamp(44px, 6.4vw, 88px); line-height: 1.02; letter-spacing: -0.02em; font-weight: 500; }
+  h2 { font-size: clamp(32px, 4.4vw, 56px); line-height: 1.08; font-weight: 500; }
+  h3 { font-size: clamp(22px, 2vw, 28px); line-height: 1.2; }
+  h4 { font-size: 18px; line-height: 1.3; }
+
+  p { margin: 0; text-wrap: pretty; }
+  .lede { font-size: clamp(17px, 1.4vw, 19px); line-height: 1.55; color: var(--piedra); }
+
+  /* ---------------- Shell ---------------- */
+  .shell {
+    width: 100%;
+    max-width: var(--shell);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+
+  section { padding: clamp(80px, 10vw, 140px) 0; position: relative; }
+  section.tight { padding: clamp(60px, 7vw, 100px) 0; }
+  .dark { background: var(--carbón); color: var(--on-dark); }
+  .dark h1, .dark h2, .dark h3, .dark h4 { color: var(--on-dark); }
+  .dark .lede, .dark p { color: rgba(245, 240, 232, 0.78); }
+
+  /* ---------------- Buttons ---------------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 24px;
+    border: 1px solid transparent;
+    border-radius: var(--radius);
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    transition: all 240ms var(--ease);
+    white-space: nowrap;
+  }
+  .btn .arrow {
+    width: 14px; height: 1px; background: currentColor; position: relative;
+    transition: width 240ms var(--ease);
+  }
+  .btn .arrow::after {
+    content: ""; position: absolute; right: 0; top: -3px;
+    width: 7px; height: 7px;
+    border-top: 1px solid currentColor;
+    border-right: 1px solid currentColor;
+    transform: rotate(45deg);
+  }
+  .btn:hover .arrow { width: 22px; }
+
+  .btn--primary {
+    background: var(--accent);
+    color: var(--carbón);
+    border-color: var(--accent);
+  }
+  .btn--primary:hover { background: #B5942F; border-color: #B5942F; }
+
+  .btn--ghost {
+    background: transparent;
+    color: var(--carbón-2);
+    border-color: var(--hairline);
+  }
+  .btn--ghost:hover { border-color: var(--carbón-2); }
+
+  .dark .btn--ghost { color: var(--on-dark); border-color: var(--hairline-dark); }
+  .dark .btn--ghost:hover { border-color: var(--on-dark); }
+
+  .btn--link {
+    padding: 0; background: none; border: 0;
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--accent);
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 4px;
+  }
+  .btn--link:hover { color: var(--carbón); border-color: var(--carbón); }
+  .dark .btn--link:hover { color: var(--on-dark); border-color: var(--on-dark); }
+
+  /* ---------------- Nav ---------------- */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 50;
+    padding: 18px 0;
+    transition: background 240ms var(--ease), padding 240ms var(--ease), border-color 240ms var(--ease);
+    border-bottom: 1px solid transparent;
+  }
+  .nav__inner {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 24px;
+  }
+  .nav.is-scrolled {
+    background: rgba(31, 29, 27, 0.86);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    padding: 12px 0;
+    border-bottom-color: var(--hairline-dark);
+  }
+  .brand {
+    display: inline-flex; align-items: center; gap: 12px;
+    color: var(--on-dark);
+  }
+  .brand__mark {
+    width: 30px; height: 30px;
+    border: 1px solid var(--accent);
+    position: relative;
+    flex: none;
+  }
+  .brand__mark::before {
+    content: ""; position: absolute; inset: 4px;
+    border: 1px solid var(--accent);
+    opacity: 0.5;
+  }
+  .brand__mark::after {
+    content: ""; position: absolute; left: 50%; top: 50%;
+    width: 6px; height: 6px;
+    background: var(--accent);
+    transform: translate(-50%,-50%) rotate(45deg);
+  }
+  .brand__name {
+    font-family: var(--serif); font-weight: 500;
+    font-size: 17px; letter-spacing: 0.01em;
+  }
+  .nav__links {
+    display: flex; gap: 32px; align-items: center;
+  }
+  .nav__links a {
+    color: var(--on-dark);
+    font-size: 13px; letter-spacing: 0.04em;
+    opacity: 0.78;
+    transition: opacity 200ms var(--ease);
+  }
+  .nav__links a:hover { opacity: 1; }
+  .nav__cta { padding: 10px 20px; }
+
+  @media (max-width: 820px) {
+    .nav__links { display: none; }
+  }
+
+  /* ---------------- Hero ---------------- */
+  .hero {
+    background: var(--carbón);
+    color: var(--on-dark);
+    padding-top: 160px;
+    padding-bottom: 120px;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .hero::before {
+    /* warm vignette + subtle texture */
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(900px 600px at 18% 20%, rgba(201, 168, 76, 0.14), transparent 60%),
+      radial-gradient(700px 500px at 90% 90%, rgba(193, 122, 90, 0.10), transparent 55%);
+    pointer-events: none;
+    z-index: -1;
+  }
+  .hero::after {
+    /* film grain */
+    content: "";
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.96  0 0 0 0 0.94  0 0 0 0 0.91  0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    opacity: 0.6;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    z-index: -1;
+  }
+  .hero__grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: clamp(40px, 6vw, 96px);
+    align-items: center;
+  }
+  @media (max-width: 920px) {
+    .hero__grid { grid-template-columns: 1fr; }
+    .hero { padding-top: 130px; padding-bottom: 90px; }
+  }
+  .hero h1 .gold { color: var(--accent); font-style: italic; font-weight: 400; }
+  .hero__sub {
+    margin-top: 28px;
+    max-width: 540px;
+    font-size: clamp(16px, 1.3vw, 19px);
+    line-height: 1.6;
+    color: rgba(245, 240, 232, 0.78);
+  }
+  .hero__ctas {
+    margin-top: 44px;
+    display: flex; gap: 16px; flex-wrap: wrap;
+  }
+  .hero__meta {
+    margin-top: 56px;
+    display: flex; gap: 36px;
+    color: rgba(245, 240, 232, 0.55);
+    font-size: 12px;
+    letter-spacing: 0.16em; text-transform: uppercase;
+  }
+  .hero__meta span::before {
+    content: "·"; margin-right: 12px; color: var(--accent);
+  }
+  .hero__meta span:first-child::before { display: none; }
+
+  /* Hero artwork */
+  .hero__art {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    max-width: 460px;
+    justify-self: end;
+    width: 100%;
+  }
+  @media (max-width: 920px) {
+    .hero__art { justify-self: stretch; max-width: 100%; aspect-ratio: 5/4; }
+  }
+  .frame {
+    position: relative;
+    width: 100%; height: 100%;
+    background: var(--carbón);
+    border: 1px solid var(--accent);
+    box-shadow:
+      0 1px 0 rgba(245,240,232,0.04) inset,
+      0 30px 60px -20px rgba(0,0,0,0.6),
+      0 0 0 8px rgba(31,29,27,1),
+      0 0 0 9px rgba(201,168,76,0.4);
+    overflow: hidden;
+  }
+  .frame__mat {
+    position: absolute; inset: 18px;
+    background: var(--crema);
+    border: 1px solid rgba(44,38,30,0.08);
+    overflow: hidden;
+  }
+  .frame__art {
+    position: absolute; inset: 28px;
+    background:
+      linear-gradient(140deg, #c47a4f 0%, #b6633a 30%, #2c2622 70%, #c9a84c 100%);
+    filter: saturate(0.9);
+  }
+  .frame__art::after {
+    content: ""; position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='0.7' numOctaves='3'/><feColorMatrix values='0 0 0 0 0.9  0 0 0 0 0.9  0 0 0 0 0.85  0 0 0 0.18 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    opacity: 0.7;
+  }
+  .frame__plaque {
+    position: absolute;
+    bottom: -24px; left: 50%; transform: translateX(-50%);
+    background: var(--carbón);
+    border: 1px solid var(--accent);
+    padding: 10px 18px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    color: var(--accent-soft);
+    white-space: nowrap;
+  }
+
+  .hero__art-side {
+    position: absolute;
+    right: -64px; top: 14%;
+    width: 90px;
+    color: var(--accent);
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    opacity: 0.7;
+  }
+  @media (max-width: 920px) { .hero__art-side { display: none; } }
+
+  /* ---------------- Manifesto ---------------- */
+  .manifesto {
+    background: var(--crema);
+    text-align: center;
+  }
+  .manifesto__inner { max-width: 880px; margin: 0 auto; }
+  .manifesto__quote {
+    margin-top: 36px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(28px, 3.4vw, 44px);
+    line-height: 1.28;
+    color: var(--carbón-2);
+    letter-spacing: -0.005em;
+  }
+  .manifesto__quote .em { color: var(--accent); font-style: italic; }
+  .manifesto__body {
+    margin-top: 32px;
+    font-size: clamp(16px, 1.2vw, 18px);
+    color: var(--piedra);
+    line-height: 1.7;
+    max-width: 640px;
+    margin-left: auto; margin-right: auto;
+  }
+  .ornament {
+    width: 88px; height: 1px;
+    background: var(--accent);
+    margin: 0 auto;
+    position: relative;
+  }
+  .ornament::before, .ornament::after {
+    content: ""; position: absolute; top: 50%;
+    width: 6px; height: 6px; background: var(--accent);
+    transform: translateY(-50%) rotate(45deg);
+  }
+  .ornament::before { left: -3px; }
+  .ornament::after { right: -3px; }
+
+  /* ---------------- Two-up: Para artistas / coleccionistas ---------------- */
+  .twoup__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--hairline);
+    border: 1px solid var(--hairline);
+  }
+  @media (max-width: 820px) { .twoup__grid { grid-template-columns: 1fr; } }
+  .twoup__card {
+    background: var(--crema);
+    padding: clamp(40px, 4.5vw, 64px);
+    display: flex; flex-direction: column; gap: 24px;
+    min-height: 480px;
+    position: relative;
+  }
+  .twoup__card.alt { background: var(--crema-2); }
+  .twoup__card h2 { font-size: clamp(28px, 3vw, 40px); }
+  .twoup__list {
+    list-style: none; padding: 0; margin: 8px 0 0;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .twoup__list li {
+    display: flex; gap: 14px; align-items: flex-start;
+    color: var(--piedra);
+    line-height: 1.55;
+    font-size: 15px;
+  }
+  .twoup__list li::before {
+    content: "";
+    flex: none;
+    width: 6px; height: 6px;
+    background: var(--accent);
+    transform: rotate(45deg);
+    margin-top: 8px;
+  }
+  .twoup__cta { margin-top: auto; padding-top: 16px; }
+  .twoup__numeral {
+    position: absolute;
+    top: 28px; right: 32px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+
+  /* ---------------- Cómo funciona ---------------- */
+  .how__head {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 48px; align-items: end;
+    margin-bottom: 64px;
+  }
+  @media (max-width: 820px) {
+    .how__head { grid-template-columns: 1fr; gap: 24px; }
+  }
+  .how__steps {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    border-top: 1px solid var(--hairline);
+    border-bottom: 1px solid var(--hairline);
+    background: var(--hairline);
+  }
+  @media (max-width: 820px) {
+    .how__steps { grid-template-columns: 1fr; }
+  }
+  .step {
+    background: var(--crema);
+    padding: 48px 36px 56px;
+    display: flex; flex-direction: column; gap: 18px;
+    transition: background 240ms var(--ease);
+  }
+  .step:hover { background: var(--crema-2); }
+  .step__num {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+    font-size: 56px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .step h3 {
+    font-size: 22px;
+    font-family: var(--serif);
+    font-weight: 600;
+  }
+  .step p { color: var(--piedra); font-size: 15px; line-height: 1.65; }
+
+  /* ---------------- Servicios ---------------- */
+  .services {
+    background: var(--carbón);
+    color: var(--on-dark);
+  }
+  .services__head {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+  .services__head .lede { color: rgba(245,240,232,0.7); margin-top: 20px; max-width: 580px; margin-left: auto; margin-right: auto; }
+
+  .plans {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 1080px) {
+    .plans { grid-template-columns: repeat(2, 1fr); margin: 0 auto; }
+    .plans > .plan:last-child:nth-child(odd) { grid-column: 1 / -1; max-width: calc(50% - 12px); margin: 0 auto; width: 100%; }
+  }
+  @media (max-width: 980px) {
+    .plans { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+    .plans > .plan:last-child:nth-child(odd) { grid-column: auto; max-width: none; margin: 0 auto; }
+  }
+
+  .plan {
+    background: rgba(245, 240, 232, 0.03);
+    border: 1px solid var(--hairline-dark);
+    padding: 40px 32px 32px;
+    display: flex; flex-direction: column;
+    position: relative;
+    transition: background 240ms var(--ease), border-color 240ms var(--ease), transform 320ms var(--ease);
+  }
+  .plan:hover { background: rgba(245,240,232,0.05); border-color: rgba(201,168,76,0.4); }
+  .plan--featured {
+    background: linear-gradient(180deg, rgba(201,168,76,0.10), rgba(201,168,76,0.02));
+    border-color: var(--accent);
+    transform: translateY(-12px);
+  }
+  .plan--featured:hover { transform: translateY(-16px); }
+  .plan--soon { opacity: 0.55; }
+  .plan--soon:hover { background: rgba(245,240,232,0.03); border-color: var(--hairline-dark); transform: none; }
+  .plan__badge--soon { background: var(--piedra); color: var(--on-dark); letter-spacing: 0.14em; }
+  .plan--soon .plan__cta { pointer-events: none; opacity: 0.4; }
+  .plan__feature--blur { filter: blur(4px); user-select: none; pointer-events: none; }
+  .plan__badge {
+    position: absolute;
+    top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--accent);
+    color: var(--carbón);
+    padding: 6px 14px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .plan__name {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 24px;
+    color: var(--on-dark);
+  }
+  .plan__name em { color: var(--accent); font-style: italic; font-weight: 400; }
+  .plan__price {
+    margin-top: 20px;
+    display: flex; align-items: baseline; gap: 6px;
+  }
+  .plan__price .amount {
+    font-family: var(--serif);
+    font-size: 40px;
+    font-weight: 500;
+    color: var(--on-dark);
+    letter-spacing: -0.02em;
+  }
+  .plan__price .currency { color: var(--accent); font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; }
+  .plan__price .note { color: rgba(245,240,232,0.55); font-size: 12px; margin-left: 4px; }
+  .plan__line {
+    width: 40px; height: 1px;
+    background: var(--accent);
+    margin: 24px 0;
+  }
+  .plan__features {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: 12px;
+    flex: 1;
+  }
+  .plan__features li {
+    display: flex; gap: 12px; align-items: flex-start;
+    color: rgba(245,240,232,0.78);
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  .plan__features li::before {
+    content: "";
+    flex: none;
+    width: 5px; height: 5px;
+    background: var(--accent);
+    transform: rotate(45deg);
+    margin-top: 8px;
+  }
+  .plan__cta {
+    margin-top: 32px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .addons {
+    margin-top: 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 24px;
+    row-gap: 48px;
+    justify-content: space-between;
+  }
+  .addons > .addon:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    max-width: calc(50% - 12px);
+    margin: 0 auto;
+    width: 100%;
+  }
+  @media (max-width: 820px) { .addons { grid-template-columns: 1fr; } }
+  @media (max-width: 820px) { .addons > .addon:last-child:nth-child(odd) { grid-column: auto; max-width: none; margin: 0; } }
+  .addon {
+    border: 1px solid var(--hairline-dark);
+    padding: 32px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: center;
+    transition: border-color 240ms var(--ease);
+  }
+  .addon:hover { border-color: rgba(201,168,76,0.4); }
+  .addon__title {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 22px;
+    color: var(--on-dark);
+  }
+  .addon__desc { color: rgba(245,240,232,0.7); font-size: 14px; line-height: 1.55; margin-top: 6px; }
+  .addon__price {
+    text-align: right;
+    color: var(--accent);
+    font-family: var(--serif);
+    font-size: 22px;
+    line-height: 1;
+  }
+  .addon__price .small { display: block; font-family: var(--sans); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(245,240,232,0.5); margin-top: 8px; }
+  .addon__cta { grid-column: 1 / -1; margin-top: 4px; }
+
+  .services__footnote {
+    margin-top: 56px;
+    text-align: center;
+    color: rgba(245,240,232,0.65);
+    font-style: italic;
+    font-family: var(--serif);
+    font-size: 17px;
+  }
+  .services__footnote a { color: var(--accent); border-bottom: 1px solid var(--accent); padding-bottom: 2px; }
+
+  /* ---------------- CTA final ---------------- */
+  .cta-final {
+    background: var(--accent);
+    color: var(--carbón);
+    text-align: center;
+    padding: clamp(80px, 9vw, 120px) 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-final::before {
+    content: ""; position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence baseFrequency='0.85' numOctaves='2'/><feColorMatrix values='0 0 0 0 0.18  0 0 0 0 0.16  0 0 0 0 0.13  0 0 0 0.10 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    opacity: 0.5;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+  .cta-final__inner { position: relative; max-width: 760px; margin: 0 auto; }
+  .cta-final h2 {
+    font-size: clamp(36px, 5vw, 64px);
+    color: var(--carbón);
+    line-height: 1.05;
+  }
+  .cta-final h2 em { font-style: italic; font-weight: 400; }
+  .cta-final p {
+    margin-top: 24px;
+    color: rgba(31, 29, 27, 0.78);
+    font-size: 17px;
+    max-width: 520px;
+    margin-left: auto; margin-right: auto;
+  }
+  .cta-final__btn {
+    margin-top: 40px;
+    background: var(--carbón);
+    color: var(--accent-soft);
+    border-color: var(--carbón);
+  }
+  .cta-final__btn:hover { background: #000; border-color: #000; color: var(--accent); }
+
+  /* ---------------- Footer ---------------- */
+  .footer {
+    background: var(--carbón);
+    color: var(--on-dark);
+    padding: 64px 0 36px;
+  }
+  .footer__top {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--hairline-dark);
+  }
+  @media (max-width: 820px) {
+    .footer__top { grid-template-columns: 1fr; gap: 32px; }
+  }
+  .footer__tagline {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 22px;
+    color: rgba(245,240,232,0.75);
+    margin-top: 18px;
+    max-width: 360px;
+    line-height: 1.4;
+  }
+  .footer__col h4 {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 18px;
+  }
+  .footer__col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+  .footer__col a { color: rgba(245,240,232,0.75); font-size: 14px; transition: color 200ms var(--ease); }
+  .footer__col a:hover { color: var(--accent); }
+
+  .socials { display: flex; gap: 12px; margin-top: 8px; }
+  .socials a {
+    width: 38px; height: 38px;
+    border: 1px solid var(--hairline-dark);
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: border-color 200ms var(--ease), color 200ms var(--ease);
+    color: rgba(245,240,232,0.7);
+  }
+  .socials a:hover { border-color: var(--accent); color: var(--accent); }
+  .socials svg { width: 16px; height: 16px; }
+
+  .footer__bottom {
+    margin-top: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    color: rgba(245,240,232,0.5);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+  }
+  .footer__bottom a { color: rgba(245,240,232,0.55); }
+  .footer__bottom a:hover { color: var(--accent); }
+
+  /* ---------------- Reveal anim ---------------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 800ms var(--ease), transform 800ms var(--ease);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .reveal.is-in {
+    opacity: 1; transform: none;
+  }
+  body.no-anim .reveal { opacity: 1; transform: none; transition: none; }
+
+  /* ---------------- Tweaks panel ---------------- */
+  .tweaks {
+    position: fixed;
+    right: 24px; bottom: 24px;
+    z-index: 100;
+    width: 280px;
+    background: var(--carbón);
+    color: var(--on-dark);
+    border: 1px solid var(--accent);
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.5);
+    font-family: var(--sans);
+    transform: translateY(8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 240ms var(--ease), opacity 240ms var(--ease);
+    display: none;
+  }
+  .tweaks.is-on {
+    display: block;
+    transform: none;
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .tweaks__head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--hairline-dark);
+  }
+  .tweaks__title {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 15px;
+    color: var(--accent);
+  }
+  .tweaks__close {
+    background: none; border: 0; padding: 4px;
+    color: rgba(245,240,232,0.7);
+    line-height: 0;
+  }
+  .tweaks__close:hover { color: var(--on-dark); }
+  .tweaks__body { padding: 18px; display: flex; flex-direction: column; gap: 18px; }
+  .tweak label {
+    display: block;
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(245,240,232,0.55);
+    margin-bottom: 10px;
+  }
+  .seg {
+    display: flex; gap: 0;
+    border: 1px solid var(--hairline-dark);
+  }
+  .seg button {
+    flex: 1;
+    background: transparent;
+    color: rgba(245,240,232,0.7);
+    border: 0;
+    padding: 9px 8px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    border-right: 1px solid var(--hairline-dark);
+    transition: background 200ms var(--ease), color 200ms var(--ease);
+  }
+  .seg button:last-child { border-right: 0; }
+  .seg button[aria-pressed="true"] {
+    background: var(--accent);
+    color: var(--carbón);
+    font-weight: 600;
+  }
+  .swatches { display: flex; gap: 10px; }
+  .swatch {
+    flex: 1; aspect-ratio: 1; border: 1px solid var(--hairline-dark);
+    cursor: pointer; position: relative; padding: 0;
+    background: var(--swatch-color);
+  }
+  .swatch[aria-pressed="true"] { outline: 2px solid var(--on-dark); outline-offset: 2px; }
+  .swatch[data-pal="oro"] { --swatch-color: #C9A84C; }
+  .swatch[data-pal="terracota"] { --swatch-color: #C17A5A; }
+  .swatch[data-pal="vino"] { --swatch-color: #D4A0A0; }
+
+  /* Accent swap classes */
+  body.accent-terracota { --accent: var(--terracota); --accent-soft: #E8C7B5; }
+  body.accent-vino { --accent: var(--vino-soft); --accent-soft: #EFD7D7; }
+
+  /* Dense grid */
+  body.dense-gallery .art--b { margin-top: 0; }
+  body.dense-gallery .art--e { margin-top: 0; }
+  body.dense-gallery .art--f { margin-top: 0; }
+
+</style>
+</head>
+<body>
+
+<!-- ============== NAV ============== -->
+<header class="nav" id="nav">
+  <div class="shell nav__inner">
+    <a href="#top" class="brand" aria-label="El Salón del Arte">
+      <span class="brand__mark" aria-hidden="true"></span>
+      <span class="brand__name">El Salón del Arte</span>
+    </a>
+    <nav class="nav__links" aria-label="Navegación principal">
+      <a href="#manifesto">¿Qué hacemos?</a>
+<a href="#para-artistas">Soy un artista</a>
+<a href="#servicios">Servicios</a>
+    </nav>
+    <a href="#" class="btn btn--primary nav__cta" data-contact="nav-cta">
+      <span>Contactar</span>
+      <span class="arrow"></span>
+    </a>
+  </div>
+</header>
+
+<!-- ============== HERO ============== -->
+<section class="hero dark" id="top">
+  <div class="shell hero__grid">
+    <div class="hero__copy">
+      <span class="eyebrow on-dark reveal">Para artistas · Guadalajara</span>
+      <h1 class="reveal" style="--reveal-delay:80ms; margin-top:28px;">
+        Tu arte merece<br>
+        <span class="gold">ser visto y vendido.</span>
+      </h1>
+      <p class="hero__sub reveal" style="--reveal-delay:160ms;">
+        Presentamos tus obras en una landing page profesional y te damos las herramientas para cobrar donde estés. Para artistas emergentes que quieren dar el siguiente paso.
+      </p>
+      <div class="hero__ctas reveal" style="--reveal-delay:220ms;">
+        <a href="#servicios" class="btn btn--primary">
+          <span>Ver servicios</span>
+          <span class="arrow"></span>
+        </a>
+      </div>
+      <div class="hero__meta reveal" style="--reveal-delay:300ms;">
+        <span>Diseño web</span>
+        <span>Terminales de cobro</span>
+        <span>Presencia digital</span>
+      </div>
+    </div>
+
+    <div class="hero__art reveal" style="--reveal-delay:120ms;">
+      <span class="hero__art-side">SERVICIOS — 2026 / GDL</span>
+      <div class="frame">
+        <div class="frame__mat">
+          <div class="frame__art"></div>
+        </div>
+        <div class="frame__plaque">DISEÑO · PARA ARTISTAS</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============== MANIFIESTO ============== -->
+<section class="manifesto" id="manifesto">
+  <div class="shell manifesto__inner">
+    <span class="eyebrow center reveal">¿Qué hacemos?</span>
+    <p class="manifesto__quote reveal" style="--reveal-delay:80ms;">
+      "Somos el equipo detrás de los artistas. Construimos las herramientas para que potencien el alcance de su obra <span class="em italic">obra</span>."
+    </p>
+    <div class="ornament reveal" style="--reveal-delay:160ms; margin-top: 36px;"></div>
+    <p class="manifesto__body reveal" style="--reveal-delay:220ms;">
+      Sabemos cómo mostrar tu trabajo, cómo ayudarte a cobrar y cómo construir la presencia digital que tu carrera merece.
+    </p>
+  </div>
+</section>
+
+<!-- ============== TWO-UP: artistas / coleccionistas ============== -->
+<section class="twoup" id="para-artistas">
+  <div class="shell">
+    <div class="twoup__grid reveal" style="grid-template-columns: 1fr;">
+      <div class="twoup__card">
+        <span class="eyebrow">Nuestros servicios</span>
+        <h2>Todo lo que necesitas para profesionalizar tu carrera artística.</h2>
+        <p class="lede">Desde tu primera página web hasta la terminal para cobrar en tu próxima feria o exposición.</p>
+        <ul class="twoup__list">
+          <li>Tu propia landing page, diseñada con cuidado editorial.</li>
+          <li>Terminal para cobrar con tarjeta en ferias, exposiciones y estudio.</li>
+          <li>Presencia digital destacada y profesional.</li>
+          <li>Acompañamiento real en cada paso del proceso.</li>
+        </ul>
+        <div class="twoup__cta">
+          <a href="#servicios" class="btn--link">Ver todos los servicios</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== CÓMO FUNCIONA ============== -->
+<section class="how tight">
+  <div class="shell">
+    <div class="how__head">
+      <div class="reveal">
+        <span class="eyebrow">Cómo funciona</span>
+        <h2 style="margin-top:18px;">Tres pasos para dar el salto profesional.</h2>
+      </div>
+      <p class="lede reveal" style="--reveal-delay:80ms;">
+        Cuidamos cada detalle del proceso, desde la primera conversación hasta el momento en que tu obra encuentra a quien la va a amar.
+      </p>
+    </div>
+
+    <div class="how__steps">
+      <div class="step reveal">
+        <span class="step__num">01</span>
+        <h3>Cuéntanos tu trayectoria</h3>
+        <p>Háblanos sobre tu carrera, tus objetivos y lo que necesitas.</p>
+      </div>
+      <div class="step reveal" style="--reveal-delay:120ms;">
+        <span class="step__num">02</span>
+        <h3>Presentamos tu desarrollo artístico</h3>
+        <p>Mostramos tus recorrido en una landing page diseñada profesionalmente: cada sección pensada para mostrar tu obra y convertir visitas en contactos.</p>
+      </div>
+      <div class="step reveal" style="--reveal-delay:240ms;">
+        <span class="step__num">03</span>
+        <h3>Tu obra llega a quien la va a amar</h3>
+        <p>Tu obra llega a quien la va a valorar. Tú te concentras en pintar; nosotros, en abrir la puerta.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== SERVICIOS ============== -->
+<section class="services dark" id="servicios">
+  <div class="shell">
+    <div class="services__head">
+      <span class="eyebrow on-dark center reveal">Servicios para artistas</span>
+      <h2 class="reveal" style="--reveal-delay:80ms; margin-top:18px;">Tu espacio en internet, hecho con la misma atención que tu obra.</h2>
+      <p class="lede reveal" style="--reveal-delay:140ms;">Paquetes diseñados para potenciar el alcance de tu obra.</p>
+    </div>
+
+    <div class="plans"></div>
+
+    <div class="addons"></div>
+
+
+
+      </div>
+
+    <p class="services__footnote reveal">
+      ¿Tienes preguntas?
+      <a href="#" data-wa data-wa-msg="Hola,%20me%20gustar%C3%ADa%20platicar%20un%20paquete">Escríbenos y lo platicamos →</a>
+    </p>
+  </div>
+</section>
+
+
+<!-- ============== CTA FINAL ============== -->
+<section class="cta-final">
+  <div class="shell cta-final__inner">
+    <span class="eyebrow center reveal" style="color:#1f1d1b;">¿Listo para empezar?</span>
+    <h2 class="reveal" style="--reveal-delay:80ms; margin-top:18px;">
+      ¿Listo para que tu arte <em>llegue más lejos?</em>
+    </h2>
+    <p class="reveal" style="--reveal-delay:140ms;">
+      Conversamos por DM y Messenger, sin formularios largos. Te respondemos personalmente.
+    </p>
+    <a href="#" data-wa class="btn btn--primary cta-final__btn reveal" style="--reveal-delay:200ms;">
+      <span>Escríbenos por Instagram</span>
+      <span class="arrow"></span>
+    </a>
+  </div>
+</section>
+
+<!-- ============== FOOTER ============== -->
+<footer class="footer">
+  <div class="shell">
+    <div class="footer__top">
+      <div>
+        <a href="#top" class="brand" aria-label="El Salón del Arte">
+          <span class="brand__mark" aria-hidden="true"></span>
+          <span class="brand__name">El Salón del Arte</span>
+        </a>
+        <p class=”footer__tagline”>”Presencia digital y herramientas para artistas emergentes.”</p>
+      </div>
+      <div class="footer__col">
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href="#" data-contact="ciudad">Guadalajara, México</a></li>
+        </ul>
+        <div class="socials" style="margin-top: 18px;">
+          <a href="#" aria-label="Instagram" data-contact="instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+              <rect x="3" y="3" width="18" height="18" rx="4"/>
+              <circle cx="12" cy="12" r="4"/>
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="Facebook" data-contact="facebook">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+              <path d="M14 7h2.5V4H14c-2 0-3.5 1.4-3.5 3.4V10H8v3h2.5v8h3v-8H16l.5-3H13.5V7.7c0-.4.2-.7.5-.7z" fill="currentColor" stroke="none"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 El Salón del Arte · Guadalajara, Jalisco</span>
+      <a href="#" style="display: none;">Aviso de privacidad</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ============== TWEAKS PANEL ============== -->
+<aside class="tweaks" id="tweaks" aria-label="Panel de ajustes">
+  <div class="tweaks__head">
+    <span class="tweaks__title">Tweaks</span>
+    <button class="tweaks__close" id="tweaksClose" aria-label="Cerrar">
+      <svg width="14" height="14" viewBox="0 0 14 14" stroke="currentColor" fill="none" stroke-width="1.4">
+        <path d="M2 2 L12 12 M12 2 L2 12"/>
+      </svg>
+    </button>
+  </div>
+  <div class="tweaks__body">
+    <div class="tweak">
+      <label>Acento</label>
+      <div class="swatches" role="radiogroup">
+        <button class="swatch" data-pal="oro" aria-pressed="true" aria-label="Oro"></button>
+        <button class="swatch" data-pal="terracota" aria-pressed="false" aria-label="Terracota"></button>
+        <button class="swatch" data-pal="vino" aria-pressed="false" aria-label="Vino suave"></button>
+      </div>
+    </div>
+    <div class="tweak">
+      <label>Galería</label>
+      <div class="seg" role="radiogroup">
+        <button data-grid="asym" aria-pressed="true">Asimétrica</button>
+        <button data-grid="dense" aria-pressed="false">Densa</button>
+      </div>
+    </div>
+    <div class="tweak">
+      <label>Animaciones</label>
+      <div class="seg" role="radiogroup">
+        <button data-anim="on" aria-pressed="true">Activas</button>
+        <button data-anim="off" aria-pressed="false">Sin</button>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<script>
+/* ==================================================================
+   CONFIGURACIÓN GENERAL
+   Edita este objeto para actualizar contacto, paquetes y servicios.
+   ================================================================== */
+const CONFIG = {
+
+  /* ── Contacto ──────────────────────────────────────────────────── */
+  contacto: {
+    whatsapp:  "521XXXXXXXXXX",   // con código de país, sin + ni espacios
+    email:     "elsalondelarte@gmail.com",
+    instagram: "https://www.instagram.com/elsalondelarte/",               // URL completa, ej: "https://instagram.com/usuario"
+    facebook:  "https://www.facebook.com/enelsalondelarte",               // URL completa, ej: "https://facebook.com/pagina"
+    ciudad:    "Guadalajara, México",
+    nav_cta:   "whatsapp",        // "whatsapp" | "email" | URL directa
+  },
+
+  /* ── Paquetes ───────────────────────────────────────────────────── */
+  paquetes: [
+    {
+      nombre:       "Landing",
+      nombre_em:    "Page",        // parte en itálica; null si no aplica
+      precio:       299,
+      moneda:       "MXN",
+      nota:         "único",
+      destacado:    false,
+      proximamente: false,
+      wa_msg:       "Hola, me interesa la Landing Page",
+      caracteristicas: [
+        "Hero, Sobre mí, Declaración artística, Galería, Currículum y Contacto",
+        "Optimizada para móvil",
+        "Tú nos cuentas tu trayectoria, nosostros la presentamos",
+        "Entrega en 3 a 7 días",
+        "El nombre de dominio se paga por separado"
+      ],
+      blur_desde: null,            // índice (base 0) desde el que se difumina; null = ninguno
+    },
+    {
+      nombre:       "Landing",
+      nombre_em:    "+ Terminal",
+      precio:       699,
+      moneda:       "MXN",
+      nota:         "único",
+      destacado:    true,
+      proximamente: false,
+      wa_msg:       "Hola, me interesa Landing + Terminal",
+      caracteristicas: [
+        "Todo lo incluido en Landing Page",
+        "Terminal Mercado Pago",
+        "Activación de la terminal de mercado pago",
+        "Cobra en tu estudio o envía links de pago a tus clientes",
+        "Ofrece pagos a meses",
+        "Sin renta mensual por la terminal",
+      ],
+      blur_desde: null,
+    },
+    {
+      nombre:       "Shopify",
+      nombre_em:    "Completo",
+      precio:       2499,
+      moneda:       "MXN",
+      nota:         "único",
+      destacado:    false,
+      proximamente: true,
+      wa_msg:       "Hola, me interesa el paquete Shopify Completo",
+      caracteristicas: [
+        "Tienda Shopify para venta en línea",
+        "Vende en línea y en persona",
+        "Terminal Mercado Pago incluida",
+        "Landing page profesional integrada",
+        "Configuración de catálogo y pagos",
+      ],
+      blur_desde: 3,               // difumina desde el índice 3 en adelante
+    },
+  ],
+
+  /* ── Servicios individuales ─────────────────────────────────────── */
+  servicios: [
+    {
+      nombre:      "Hosting y mantenimiento",
+      descripcion: "Si adquiriste tu landing page con nosotros, nos encargamos de gestionar el hosting y de que tu página esté activa y disponible.",
+      precio:      "$49",
+      precio_nota: "MXN / mes",
+      wa_msg:      "Hola, quiero el servicio de hosting y mantenimiento",
+      cta_texto:   "Contratar",
+    },
+    {
+      nombre:      "Terminal Mercado Pago",
+      descripcion: "¿Ya tienes tu landing? Consigue tu terminal por separado. Somos Representantes oficiales en Guadalajara. Sin rentas mensuales",
+      precio:      "desde $499",
+      precio_nota: "MXN único",
+      wa_msg:      "Hola, quiero una terminal Mercado Pago",
+      cta_texto:   "Quiero la mía",
+    },
+  ],
+};
+/* ================================================================== */
+
+/* ==================================================================
+   El Salón del Arte — interaction layer
+   ================================================================== */
+
+const waUrl = (num, msg) =>
+  `https://wa.me/${num}${msg ? '?text=' + encodeURIComponent(msg) : ''}`;
+
+const fmtPrecio = n =>
+  '$' + String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+function renderPlanes() {
+  const container = document.querySelector('.plans');
+  if (!container) return;
+  container.innerHTML = CONFIG.paquetes.map((p, i) => {
+    const clases = ['plan', 'reveal',
+      p.destacado    ? 'plan--featured' : '',
+      p.proximamente ? 'plan--soon'     : '',
+    ].filter(Boolean).join(' ');
+    const badge = p.destacado
+      ? '<span class="plan__badge">Recomendado</span>'
+      : p.proximamente
+        ? '<span class="plan__badge plan__badge--soon">Próximamente</span>'
+        : '';
+    const nameHtml = p.nombre_em ? `${p.nombre} <em>${p.nombre_em}</em>` : p.nombre;
+    const features = p.caracteristicas.map((f, fi) => {
+      const blur = p.blur_desde !== null && fi >= p.blur_desde ? ' class="plan__feature--blur"' : '';
+      return `<li${blur}>${f}</li>`;
+    }).join('\n          ');
+    const href = p.proximamente ? '#' : waUrl(CONFIG.contacto.whatsapp, p.wa_msg);
+    return `
+      <article class="${clases}" style="--reveal-delay:${i * 120}ms;">
+        ${badge}
+        <div class="plan__name">${nameHtml}</div>
+        <div class="plan__price">
+          <span class="amount">${fmtPrecio(p.precio)}</span>
+          <span class="currency">${p.moneda}</span>
+          <span class="note">${p.nota}</span>
+        </div>
+        <div class="plan__line"></div>
+        <ul class="plan__features">
+          ${features}
+        </ul>
+        <a href="${href}" class="btn ${p.destacado ? 'btn--primary' : 'btn--ghost'} plan__cta">
+          <span>Quiero este paquete</span>
+          <span class="arrow"></span>
+        </a>
+      </article>`;
+  }).join('');
+}
+
+function renderServicios() {
+  const container = document.querySelector('.addons');
+  if (!container) return;
+  container.innerHTML = CONFIG.servicios.map((s, i) => `
+    <div class="addon reveal" style="--reveal-delay:${i * 120}ms;">
+      <div>
+        <h3 class="addon__title">${s.nombre}</h3>
+        <p class="addon__desc">${s.descripcion}</p>
+      </div>
+      <div class="addon__price">
+        ${s.precio}
+        <span class="small">${s.precio_nota}</span>
+      </div>
+      <a href="${waUrl(CONFIG.contacto.whatsapp, s.wa_msg)}" class="btn btn--ghost addon__cta">
+        <span>${s.cta_texto}</span>
+        <span class="arrow"></span>
+      </a>
+    </div>`).join('');
+}
+
+(() => {
+  /* ---- Render dinámico (antes del observer para que las animaciones funcionen) ---- */
+  renderPlanes();
+  renderServicios();
+
+  /* ---- Nav scroll state ---- */
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('is-scrolled', window.scrollY > 30);
+  document.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* ---- Reveal animations ---- */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  /* ---- Smooth anchor offset for fixed nav ---- */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (ev) => {
+      const id = a.getAttribute('href');
+      if (id.length < 2) return;
+      const target = document.querySelector(id);
+      if (!target) return;
+      ev.preventDefault();
+      window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' });
+    });
+  });
+
+  /* ---- Tweaks panel ---- */
+  const tweaks = document.getElementById('tweaks');
+  const tweaksClose = document.getElementById('tweaksClose');
+  window.addEventListener('message', (ev) => {
+    const t = ev.data && ev.data.type;
+    if (t === '__activate_edit_mode')   tweaks.classList.add('is-on');
+    if (t === '__deactivate_edit_mode') tweaks.classList.remove('is-on');
+  });
+  try { window.parent.postMessage({ type: '__edit_mode_available' }, '*'); } catch (e) {}
+  tweaksClose.addEventListener('click', () => {
+    tweaks.classList.remove('is-on');
+    try { window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*'); } catch (e) {}
+  });
+
+  const TWEAKS = /*EDITMODE-BEGIN*/{ "accent": "terracota", "grid": "asym", "anim": "on" }/*EDITMODE-END*/;
+  const persist = patch => { try { window.parent.postMessage({ type: '__edit_mode_set_keys', edits: patch }, '*'); } catch (e) {} };
+
+  const applyAccent = val => {
+    document.body.classList.remove('accent-oro', 'accent-terracota', 'accent-vino');
+    if (val !== 'oro') document.body.classList.add('accent-' + val);
+    document.querySelectorAll('.swatch').forEach(s => s.setAttribute('aria-pressed', s.dataset.pal === val ? 'true' : 'false'));
+  };
+  const applyGrid = val => {
+    document.body.classList.toggle('dense-gallery', val === 'dense');
+    document.querySelectorAll('.seg button[data-grid]').forEach(b => b.setAttribute('aria-pressed', b.dataset.grid === val ? 'true' : 'false'));
+  };
+  const applyAnim = val => {
+    document.body.classList.toggle('no-anim', val === 'off');
+    document.querySelectorAll('.seg button[data-anim]').forEach(b => b.setAttribute('aria-pressed', b.dataset.anim === val ? 'true' : 'false'));
+  };
+
+  applyAccent(TWEAKS.accent); applyGrid(TWEAKS.grid); applyAnim(TWEAKS.anim);
+
+  document.querySelectorAll('.swatch').forEach(s => s.addEventListener('click', () => { applyAccent(s.dataset.pal); persist({ accent: s.dataset.pal }); }));
+  document.querySelectorAll('.seg button[data-grid]').forEach(b => b.addEventListener('click', () => { applyGrid(b.dataset.grid); persist({ grid: b.dataset.grid }); }));
+  document.querySelectorAll('.seg button[data-anim]').forEach(b => b.addEventListener('click', () => { applyAnim(b.dataset.anim); persist({ anim: b.dataset.anim }); }));
+
+  /* ---- Aplicar datos de contacto ---- */
+  const { whatsapp, email, instagram, facebook, ciudad, nav_cta } = CONFIG.contacto;
+
+  const navCta = document.querySelector('[data-contact="nav-cta"]');
+  if (navCta) {
+    if      (nav_cta === 'whatsapp') navCta.href = waUrl(whatsapp, '');
+    else if (nav_cta === 'email')    navCta.href = `mailto:${email}`;
+    else                             navCta.href = nav_cta;
+  }
+
+  document.querySelectorAll('[data-wa]').forEach(el => { el.href = waUrl(whatsapp, ''); });
+
+  const emailEl = document.querySelector('[data-contact="email"]');
+  if (emailEl) { emailEl.href = `mailto:${email}`; emailEl.textContent = email; }
+
+  ['instagram', 'facebook'].forEach(red => {
+    const el = document.querySelector(`[data-contact="${red}"]`);
+    if (el) el.href = CONFIG.contacto[red];
+  });
+
+  const ciudadEl = document.querySelector('[data-contact="ciudad"]');
+  if (ciudadEl) ciudadEl.textContent = ciudad;
+})();
+</script>
+
+</body>
+</html>
