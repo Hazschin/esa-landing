@@ -1123,7 +1123,7 @@ const CONFIG = {
     instagram: "https://www.instagram.com/elsalondelarte/",               // URL completa, ej: "https://instagram.com/usuario"
     facebook:  "https://www.facebook.com/enelsalondelarte",               // URL completa, ej: "https://facebook.com/pagina"
     ciudad:    "Guadalajara, México",
-    nav_cta:   "whatsapp",        // "whatsapp" | "email" | URL directa
+    nav_cta:   "instagram",        // "whatsapp" | "email" | "instagram" | "facebook" | URL directa
   },
 
   /* ── Paquetes ───────────────────────────────────────────────────── */
@@ -1350,9 +1350,11 @@ function renderServicios() {
 
   const navCta = document.querySelector('[data-contact="nav-cta"]');
   if (navCta) {
-    if      (nav_cta === 'whatsapp') navCta.href = waUrl(whatsapp, '');
-    else if (nav_cta === 'email')    navCta.href = `mailto:${email}`;
-    else                             navCta.href = nav_cta;
+    if      (nav_cta === 'whatsapp')  navCta.href = waUrl(whatsapp, '');
+    else if (nav_cta === 'email')     navCta.href = `mailto:${email}`;
+    else if (nav_cta === 'instagram') { navCta.href = instagram; navCta.target = '_blank'; navCta.rel = 'noopener noreferrer'; }
+    else if (nav_cta === 'facebook')  { navCta.href = facebook;  navCta.target = '_blank'; navCta.rel = 'noopener noreferrer'; }
+    else                              navCta.href = nav_cta;
   }
 
   document.querySelectorAll('[data-wa]').forEach(el => { el.href = waUrl(whatsapp, ''); });
